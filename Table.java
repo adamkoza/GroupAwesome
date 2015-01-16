@@ -156,8 +156,19 @@ public class Table
         out.println ("RA> " + name + ".select (" + predicate + ")");
 
         List <Comparable []> rows = null;
+        rows = new ArrayList<Comparable[]>();
+        int rowLength = this.tuples.size();
+        Comparable [] tuple;
+        TreeMap index = new TreeMap <> ();
+        String key_s = this.key[0];
 
-        //  T O   B E   I M P L E M E N T E D 
+
+        for(int i = 0; i < rowLength; i++) {
+            tuple = this.tuples.get(i);
+            if(predicate.test(tuple) == true) {
+                rows.add(tuple);
+                index.put(key_s, tuple);
+            }
 
         return new Table (name + count++, attribute, domain, key, rows);
     } // select
@@ -174,8 +185,27 @@ public class Table
         out.println ("RA> " + name + ".select (" + keyVal + ")");
 
         List <Comparable []> rows = null;
+        rows = new ArrayList<Comparable[]>();
+        int rowLength = this.tuples.size();
+        Comparable [] tuple;
+        String [] key = this.key;
+        int attr_len = attribute.length;
+        int key_num = 0;
+        String s_keyVal = keyVal.toString();
+        s_keyVal = s_keyVal.substring(6,s_keyVal.length() - 2);
 
-        //  T O   B E   I M P L E M E N T E D 
+        for(int i = 0; i < attr_len; i++) {
+            if(key[0].equals(this.attribute[i]))
+                break;
+            key_num++;
+        }
+
+        for(int i = 0; i < rowLength; i++) {
+            tuple = this.tuples.get(i);
+            if(tuple[key_num].equals(s_keyVal) == true) {
+                rows.add(tuple);
+            }
+        }
 
         return new Table (name + count++, attribute, domain, key, rows);
     } // select
@@ -194,8 +224,20 @@ public class Table
         if (! compatible (table2)) return null;
 
         List <Comparable []> rows = null;
+        rows = new ArrayList<Comparable[]>();
+        int rowLength_t1 = this.tuples.size();
+        int rowLength_t2 = table2.tuples.size();
+        Comparable [] tuple;
 
-        //  T O   B E   I M P L E M E N T E D 
+        for(int i = 0; i < rowLength_t1; i++) {
+            tuple = this.tuples.get(i);
+            rows.add(tuple);
+        }
+
+        for(int i = 0; i < rowLength_t2; i++) {
+            tuple = this.tuples.get(i);
+            rows.add(tuple);
+        }
 
         return new Table (name + count++, attribute, domain, key, rows);
     } // union
@@ -209,17 +251,29 @@ public class Table
      * @param table2  The rhs table in the minus operation
      * @return  a table representing the difference
      */
-    public Table minus (Table table2)
-    {
+     public Table minus (Table table2)
+     {
         out.println ("RA> " + name + ".minus (" + table2.name + ")");
         if (! compatible (table2)) return null;
 
         List <Comparable []> rows = null;
+        rows = new ArrayList<Comparable[]>();
+        int rowLength_t1 = this.tuples.size();
+        int rowLength_t2 = table2.tuples.size();
+        Comparagle [] tuple;
 
-        //  T O   B E   I M P L E M E N T E D 
+        for (int i = 0; i < rowLength_t1; i++) {
+            tuple = this.tuples.get(i);
+            rows.add(tuple);
+        }
+        for (int i = 0; i < rowLength_t2; i++) {
+            tuple = table2.tuples.get(i);
+            if (rows.contains(tuple)
+                rows.remove(tuple);
+        }
 
         return new Table (name + count++, attribute, domain, key, rows);
-    } // minus
+     } // minus
 
     /************************************************************************************
      * Join this table and table2 by performing an equijoin.  Tuples from both tables
