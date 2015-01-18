@@ -296,9 +296,65 @@ public class Table
         String [] t_attrs = attributes1.split (" ");
         String [] u_attrs = attributes2.split (" ");
 
-        List <Comparable []> rows = null;
+        //lists of attributes' column indexes for each table
+        int [] t_attrs_index = new int[t_attrs.length]
+        int [] u_attrs_index = new int[u_attrs.length]
 
-        //  T O   B E   I M P L E M E N T E D 
+        //checks for uneven attribute numbers to compare
+        if(t_attrs.length != u_attrs.length){
+            return null;
+        }
+
+        //generate list of column indexes from attribute parameters to compare for table1
+        for(int i = 0; i < this.attribute.length; i++;){
+            for(int j = 0; j < t_attrs.length; j++){
+                if(this.attribute[i].equals(t_attrs[j])){
+                    t_attrs_index[j] = i;
+                    break;
+                }
+            }
+        }
+        //generate list of column indexes from attribute parameters to compare for table2
+        for(int i = 0; i < table2.attribute.length; i++){
+            for(int j = 0; j < u_attrs.length; j++){
+                if(table2.attribute[i].equals(u_attrs[j])){
+                    u_attrs_index[j] = i;
+                    break;
+                }
+            }
+        }
+
+
+        List <Comparable []> rows = null;
+        rows = new ArrayList<Comparable[]>();
+        Comparable [] tuple;
+
+        //loop through both sets of rows for tables 
+        for(int i = 0; i < this.tuples.size(); i++){
+            for(int j = 0; j < table2.tuples.size(); j++){
+
+                boolean attrs_equal = false;
+                //loop through all relevant attribute fields using the generated index list for each table and compare their values 
+                for (int k =0; k < t_attrs_index.length; k++0){
+
+                    if(this.tuples.get(i)[t_attrs_index[k]] != this.tuples.get(j)[u_attrs_index[k]]{
+                        attrs_equal = false;
+                        break;
+                    }
+                    else{
+                        attrs_equal = true;
+                    }
+                }
+                //concatenates and adds the tuples to our new row list if their key values are equal
+                if(attrs_equal){
+                    tuple = ArrayUtil.concat(this.tuples.get(i), table2.tuples.get(j));
+                    rows.add(tuple);
+                }
+            }
+        }
+
+        //create new key from two existing keys
+        String [] key = ArrayUtil.concat(this.key, table2.key);
 
         return new Table (name + count++, ArrayUtil.concat (attribute, table2.attribute),
                                           ArrayUtil.concat (domain, table2.domain), key, rows);
