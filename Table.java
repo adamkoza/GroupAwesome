@@ -300,6 +300,8 @@ public class Table
         int [] t_attrs_index = new int[t_attrs.length]
         int [] u_attrs_index = new int[u_attrs.length]
 
+        boolean type_check = true;
+
         //checks for uneven attribute numbers to compare
         if(t_attrs.length != u_attrs.length){
             return null;
@@ -323,7 +325,17 @@ public class Table
                 }
             }
         }
+        //ensures column domains for the keys to compare match eachother
+        for(int i=0; i < t_attrs_index; i++){
+            if(this.domain[i] != table2.domain[i]) {
+                type_check = false;
+                break;
+            }
+        }
 
+        if(!type_check){
+            return null;
+        }
 
         List <Comparable []> rows = null;
         rows = new ArrayList<Comparable[]>();
