@@ -578,8 +578,16 @@ public class Table
      *          with the given domains
      */
     private boolean typeCheck (Comparable [] t)
-    { 
-        //  T O   B E   I M P L E M E N T E D 
+    {
+        //check if the tuple has the correct amount of attributes
+        if (t.length != attribute.length)
+            return false;
+
+        //checks if each attribute is of the correct class
+        for (int i = 0; i < t.length; i++) {
+            if (!(domain[i].isInstance(t[i])))
+                return false;
+        }
 
         return true;
     } // typeCheck
