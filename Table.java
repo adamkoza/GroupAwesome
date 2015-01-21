@@ -137,8 +137,17 @@ public class Table
         String [] newKey    = (Arrays.asList (attrs).containsAll (Arrays.asList (key))) ? key : attrs;
 
         List <Comparable []> rows = null;
+        rows = new ArrayList<Comparable []>();
+        int [] columns = match(attrs);
 
-        //  T O   B E   I M P L E M E N T E D 
+        Comparable [] t;
+        for (int i = 0; i < tuples.size(); i++) {
+            t = new Comparable[columns.length];
+            for (int j = 0; j < columns.length; j++) {
+                t[j] = this.tuples.get(i)[columns[j]];
+            }
+            rows.add(t);
+        }
 
         return new Table (name + count++, attrs, colDomain, newKey, rows);
     } // project
@@ -236,8 +245,9 @@ public class Table
         }
 
         for(int i = 0; i < rowLength_t2; i++) {
-            tuple = this.tuples.get(i);
-            rows.add(tuple);
+            tuple = table2.tuples.get(i);
+            if (!rows.contains(tuple))
+                rows.add(tuple);
         }
 
         return new Table (name + count++, attribute, domain, key, rows);
@@ -255,22 +265,17 @@ public class Table
      public Table minus (Table table2)
      {
         out.println ("RA> " + name + ".minus (" + table2.name + ")");
+
         if (! compatible (table2)) return null;
 
-        List <Comparable []> rows = null;
-        rows = new ArrayList<Comparable[]>();
+        List<Comparable[]> rows = new ArrayList<Comparable[]>();
         int rowLength_t1 = this.tuples.size();
-        int rowLength_t2 = table2.tuples.size();
-        Comparagle [] tuple;
+        Comparable [] tuple;
 
         for (int i = 0; i < rowLength_t1; i++) {
             tuple = this.tuples.get(i);
-            rows.add(tuple);
-        }
-        for (int i = 0; i < rowLength_t2; i++) {
-            tuple = table2.tuples.get(i);
-            if (rows.contains(tuple))
-                rows.remove(tuple);
+            if (!table2.tuples.contains(tuple))
+                rows.add(tuple);
         }
 
         return new Table (name + count++, attribute, domain, key, rows);
@@ -327,7 +332,7 @@ public class Table
             }
         }
         //ensures column domains for the keys to compare match eachother
-        for(int i=0; i < t_attrs_index; i++){
+        for(int i=0; i < t_attrs_index.length; i++){
             if(this.domain[i] != table2.domain[i]) {
                 type_check = false;
                 break;
