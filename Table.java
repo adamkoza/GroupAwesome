@@ -169,6 +169,7 @@ public class Table
                 rows.add(tuple);
                 index.put(key_s, tuple);
             }
+        }
 
         return new Table (name + count++, attribute, domain, key, rows);
     } // select
@@ -268,7 +269,7 @@ public class Table
         }
         for (int i = 0; i < rowLength_t2; i++) {
             tuple = table2.tuples.get(i);
-            if (rows.contains(tuple)
+            if (rows.contains(tuple))
                 rows.remove(tuple);
         }
 
@@ -297,8 +298,8 @@ public class Table
         String [] u_attrs = attributes2.split (" ");
 
         //lists of attributes' column indexes for each table
-        int [] t_attrs_index = new int[t_attrs.length]
-        int [] u_attrs_index = new int[u_attrs.length]
+        int [] t_attrs_index = new int[t_attrs.length];
+        int [] u_attrs_index = new int[u_attrs.length];
 
         boolean type_check = true;
 
@@ -308,7 +309,7 @@ public class Table
         }
 
         //generate list of column indexes from attribute parameters to compare for table1
-        for(int i = 0; i < this.attribute.length; i++;){
+        for(int i = 0; i < this.attribute.length; i++){
             for(int j = 0; j < t_attrs.length; j++){
                 if(this.attribute[i].equals(t_attrs[j])){
                     t_attrs_index[j] = i;
@@ -347,9 +348,9 @@ public class Table
 
                 boolean attrs_equal = false;
                 //loop through all relevant attribute fields using the generated index list for each table and compare their values 
-                for (int k =0; k < t_attrs_index.length; k++0){
+                for (int k = 0; k < t_attrs_index.length; k++){
 
-                    if(this.tuples.get(i)[t_attrs_index[k]] != this.tuples.get(j)[u_attrs_index[k]]{
+                    if(this.tuples.get(i)[t_attrs_index[k]] != this.tuples.get(j)[u_attrs_index[k]]){
                         attrs_equal = false;
                         break;
                     }
