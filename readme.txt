@@ -7,6 +7,9 @@ make compile
 To run:
 make run
 
+To make javadoc:
+make javadoc
+
 To clean:
 make clean
 
