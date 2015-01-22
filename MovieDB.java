@@ -17,8 +17,7 @@ class MovieDB
      * Main method for creating, populating and querying a Movie Database.
      * @param args  the command-line arguments
      */
-    public static void main (String [] args)
-    {
+    public static void main(String [] args){
         out.println ();
 
         Table movie = new Table ("movie", "title year length genre studioName producerNo",
@@ -126,11 +125,15 @@ class MovieDB
         t_minus.print ();
 
         //--------------------- join
-
+        movie.print();
+        studio.print();
         out.println ();
+        
         Table t_join = movie.join ("studioName", "name", studio);
         t_join.print ();
 
+        movie.print();
+        cinema.print();
         out.println ();
         Table t_join2 = movie.join ("title year", "title year", cinema);
         t_join2.print ();

@@ -355,12 +355,15 @@ public class Table
                 //loop through all relevant attribute fields using the generated index list for each table and compare their values 
                 for (int k = 0; k < t_attrs_index.length; k++){
 
-                    if(this.tuples.get(i)[t_attrs_index[k]] != this.tuples.get(j)[u_attrs_index[k]]){
-                        attrs_equal = false;
-                        break;
+                    if(this.tuples.get(i)[t_attrs_index[k]].equals(table2.tuples.get(j)[u_attrs_index[k]])){
+                        out.print(this.tuples.get(i)[t_attrs_index[k]]);
+                        out.print(this.tuples.get(j)[u_attrs_index[k]]);
+
+                        attrs_equal = true;
                     }
                     else{
-                        attrs_equal = true;
+                        attrs_equal = false;
+                        break;
                     }
                 }
                 //concatenates and adds the tuples to our new row list if their key values are equal
