@@ -1,0 +1,14 @@
+Group Members: Adam Koza, Sean Sandlin, Jackson Wearn, Ben Pipkin
+
+To compile BpTreeMap:
+make compile1
+To compile LinHashMap:
+make compile2
+To compile ExtHashMap:
+make compile3
+To run BpTreeMap:
+make run1
+To run LinHashMap:
+make run2
+To run ExtHashMap:
+make run3
