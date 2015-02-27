@@ -109,7 +109,9 @@ public class TestTupleGenerator
 
 
         startTime = System.nanoTime();
-        ourEHMTable1.select(new KeyType (ourIDs.get(0)));
+	ourEHMTable1.select(ourIDs.get(0));
+	//ourEHMTable1.select(new KeyType(ourIDs.get(0)));
+        //ourEHMTable1.select(new KeyType(ourEHMTable1.tuples.get(50)[0]));//new KeyType(ourIDs.get(0).intValue()));
         endTime = System.nanoTime();
         duration = (float) (endTime - startTime) / 1000000;
 

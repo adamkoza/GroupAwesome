@@ -1,7 +1,7 @@
 all:clean
 
 compile:
-	javac *.java
+	javac -g *.java
 
 run:compile
 	java TestTupleGenerator

@@ -204,18 +204,18 @@ public class EHMTable
      * @param keyVal  the given key value
      * @return  a table with the tuple satisfying the key predicate
      */
-    public EHMTable select (KeyType keyVal)
+    public EHMTable select (Object keyVal)
     {
         out.println ("RA> " + name + ".select (" + keyVal + ")");
 
         List <Comparable []> rows = null;
         rows = new ArrayList<Comparable[]>();
         Comparable [] tuple;
-
-        int tuple_index = index.get(new KeyType(keyVal));
-        tuple = this.tuples.get(tuple_index);
-        rows.add(tuple);
-
+	int test = 2;
+	out.println("index.get(keyVal) = " + index.get(keyVal));
+	Integer tuple_index = index.get(keyVal);
+	tuple = this.tuples.get(tuple_index);
+	rows.add(tuple);
 
         return new EHMTable(name + count++, attribute, domain, key, rows);
     } // select

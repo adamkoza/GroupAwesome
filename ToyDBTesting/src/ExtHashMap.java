@@ -119,7 +119,7 @@ public class ExtHashMap <K, V>
 
         //loop through bucket the key hashes to and find the value in it's list of members
         for(int j =0; j < b.key.length; j++){
-            if(b.key[j] == key){
+            if(b.key[j] != null && key != null && b.key[j].equals(key)){
                 return b.value[j];
             }
         }
