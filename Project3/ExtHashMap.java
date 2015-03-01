@@ -119,7 +119,7 @@ public class ExtHashMap <K, V>
 
         //loop through bucket the key hashes to and find the value in it's list of members
         for(int j =0; j < b.key.length; j++){
-            if(b.key[j] == key){
+            if(b.key[j] != null && key != null && b.key[j].equals(key)){
                 return b.value[j];
             }
         }
@@ -196,7 +196,7 @@ public class ExtHashMap <K, V>
 
         //inserts key/value pair into the bucket if there is room
         if(b.nKeys < SLOTS) {
-            out.println("Inserting key: " + key.toString() + " (hashed:" + i + ") value:" + value.toString() + " into bucket " + b.bNum);
+            //out.println("Inserting key: " + key.toString() + " (hashed:" + i + ") value:" + value.toString() + " into bucket " + b.bNum);
             b.key[b.nKeys] = key;
             b.value[b.nKeys] = value;
             b.nKeys++;
@@ -234,10 +234,10 @@ public class ExtHashMap <K, V>
     /********************************************************************************
      * Print the hash table.
      */
-    private void print ()
+    public void print ()
     {
         out.println ("-------------------------------------------");
-        out.println ("Hash Table (Extendible Hashing)");
+        out.println ("Hash EHMTable (Extendable Hashing)");
         out.println ("-------------------------------------------");
 
         for(int i = 0; i < hTable.size(); i++){
